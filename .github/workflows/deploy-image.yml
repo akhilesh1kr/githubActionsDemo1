@@ -32,7 +32,8 @@ jobs:
           tags: |
             type=ref,event=branch
             type=sha
-            type=custom,custom-tag=${{ github.ref_name }}-${{ github.sha }}
+          custom-tags: |
+            ${{ github.ref_name }}-${{ github.sha }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
