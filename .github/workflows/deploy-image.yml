@@ -31,9 +31,10 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
-            type=sha
-          custom-tags: |
-            ${{ github.ref_name }}-${{ github.sha }}
+            # dynamically set the branch name as a prefix
+            type=sha,prefix={{branch}}-
+            # dynamically set the branch name and sha as a custom tag
+            type=raw,value=mytag-{{branch}}-{{sha}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
